@@ -28,7 +28,7 @@ namespace DnD_Encounter_Manager
         public string? ConImmun { get; set; }
         public string? Sense { get; set; }
         public string? Language { get; set; }
-        public string? Feature { get; set; }
+        public List<string>? Feature { get; set; }
         public string? Action { get; set; }
         public int LegendaryAct { get; set; }
 
