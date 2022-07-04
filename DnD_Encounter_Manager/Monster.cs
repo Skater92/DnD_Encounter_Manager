@@ -29,7 +29,7 @@ namespace DnD_Encounter_Manager
         public string? Sense { get; set; }
         public string? Language { get; set; }
         public List<string>? Feature { get; set; }
-        public string? Action { get; set; }
+        public List<string>? Action { get; set; }
         public int LegendaryAct { get; set; }
 
 

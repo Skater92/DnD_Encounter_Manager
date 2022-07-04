@@ -16,9 +16,9 @@ namespace DnD_Encounter_Manager.MonsterBuilders
             newMon.Feature = inputList;           
         }
 
-        public void addAction()
+        public void addAction(List<string> actionList)
         {
-
+            newMon.Action = actionList;
         }
 
         public void buildMon(int id, int AC, int HP, string Name, bool isLegendary, bool inLair, string size, int speed, int str, int dex,
