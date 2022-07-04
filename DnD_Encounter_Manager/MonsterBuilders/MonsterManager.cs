@@ -8,6 +8,8 @@ namespace DnD_Encounter_Manager.MonsterBuilders
 {
     public class MonsterManager
     {
+        private List<string> LangList = new List<string>();
+        
         private Monster newMon = new Monster();
         public List<Monster> monsters = new List<Monster>();
 
@@ -19,6 +21,11 @@ namespace DnD_Encounter_Manager.MonsterBuilders
         public void addAction(List<string> actionList)
         {
             newMon.Action = actionList;
+        }
+
+        public void addLang(List<string> LanguageList)
+        {
+
         }
 
         public void buildMon(int id, int AC, int HP, string Name, bool isLegendary, bool inLair, string size, int speed, int str, int dex,
@@ -36,6 +43,7 @@ namespace DnD_Encounter_Manager.MonsterBuilders
             newMon.Int = Int;
             newMon.Wis = Wis;
             newMon.Cha = Cha;
+            
 
             if(isLegendary)
             {
