@@ -11,7 +11,8 @@ namespace DnD_Encounter_Manager
 
         public void PrintMenu()
         {
-            Console.WriteLine("\n\nMain Menu\n\n1)\tAdd Monster\n2)\tDisplay Monster");
+            Console.WriteLine("\n\n\t//\tMain Menu\t\\\\\n\n  1)\tAdd Monster\n\n  2)\tDisplay Monster");
+
         }
 
     }
