@@ -78,6 +78,18 @@ namespace DnD_Encounter_Manager.Functions
             Console.WriteLine("Speed(Swim): ");
             int speedSwim = Int32.Parse(Console.ReadLine());
 
+            Console.WriteLine("Strength(Total): ");
+            int strength = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Dex(Total): ");
+            int dexterity = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Constitution(Total): ");
+            int con = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Intelligence(Total): ");
+            int Intel = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Wisdom(Total): ");
+            int Wis = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Charisma(Total): ");
+            int Cha = Int32.Parse(Console.ReadLine());
 
 
         }
