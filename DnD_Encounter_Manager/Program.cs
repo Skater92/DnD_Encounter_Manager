@@ -4,38 +4,38 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using DnD_Encounter_Manager.Functions;
 using DnD_Encounter_Manager.MonsterBuilders;
-//using Newtonsoft.Json;
+using Newtonsoft.Json;
+
 
 
 namespace DnD_Encounter_Manager
 {
     class Program
     {
-       
-        private static readonly string PATH = System.Environment.CurrentDirectory;
-        private static readonly string DATA_FILE = PATH + "\\..\\..\\SavedData.json";
+
+        private static readonly string PATH = System.Environment.CurrentDirectory;       
+        private static readonly string DATA_FILE = PATH + "\\..\\..\\Debug\\net6.0\\Saved_Files";
+        private static readonly string BACKUP = PATH + "\\..\\..\\Debug\\net6.0\\BACK_UP_FILES";
         private static List<Monster> m_ = new List<Monster>();
+        
+        
+       
         static void Main()
         {
-
-            m_ = ReadJsonFile(DATA_FILE);
-
-            ExtraFunct funct = new ExtraFunct();
+            SaveFiles sFile = new SaveFiles();            
+            //ExtraFunct funct = new ExtraFunct();
             RunMenus menus = new RunMenus();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("DnD Encounter Manager v0.1 (c) DeadPeopleLabs 2022");
-            Console.ResetColor();
-            funct.PrintMenu();
-            int inputVal = menus.runMainMenu();
-            menus.menuSelection(inputVal);
+            sFile.PrintSaveMenu();
+            string chosenFile = sFile.RunSaveMenu(DATA_FILE, BACKUP);
+            m_ = ReadJsonFileToMonster(chosenFile);
+                menus.runMainMenu(DATA_FILE, BACKUP);
         }
 
-        private static List<Monster> ReadJsonFile(string DATA_FILE)
+         static List<Monster> ReadJsonFileToMonster(string DATA_FILE)
         {
             string json = File.ReadAllText(DATA_FILE);
-            //return JsonConvert.DeserializeObject<List<Monster>>(json);
-            return null;
+            return JsonConvert.DeserializeObject<List<Monster>>(json);
+            
         }
 
     }

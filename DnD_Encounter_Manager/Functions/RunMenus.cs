@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DnD_Encounter_Manager.MonsterBuilders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,14 @@ namespace DnD_Encounter_Manager.Functions
 {
     public class RunMenus
     {
+        ExtraFunct funct = new ExtraFunct();
+        SaveFiles sf = new SaveFiles();
+        MonsterManager monster = new MonsterManager();
 
-        public int runMainMenu()
+        public void runMainMenu(string PATH, string BACKUP)
         {
+            int returnVal;
+            funct.PrintMenu();         
             string inputVar = "";
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nPlease Select an Option");
@@ -18,16 +24,17 @@ namespace DnD_Encounter_Manager.Functions
             inputVar = Console.ReadLine();
             if(inputVar == null)
             {
-                return -1;
+                returnVal = -1;
             }
             else
             {
-                return Int32.Parse(inputVar);
+                returnVal = Int32.Parse(inputVar);
             }
+            menuSelection(returnVal, PATH, BACKUP);
             
         }
 
-        public void menuSelection(int input)
+        public void menuSelection(int input, string PATH, string BACKUP)
         {
 
             try
@@ -35,10 +42,45 @@ namespace DnD_Encounter_Manager.Functions
                 switch (input)
                 {
                     case 1:
-                        Add_Monster();
+                        try
+                        {
+                            Console.Clear();
+                            sf.PrintSaveMenu();
+                            sf.RunSaveMenu(PATH, BACKUP);
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            Thread.Sleep(2000);
+                            Console.Clear();
+                            runMainMenu(PATH, BACKUP);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            runMainMenu(PATH, BACKUP);
+                        }
                         break;
                     case 2:
-                        //TODO Display Monsters
+                        try { monster.Add_Monster();
+                            Console.WriteLine("Monster ADDED!");
+                            Thread.Sleep(2000);
+                            Console.Clear();
+                            runMainMenu(PATH, BACKUP);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        break;
+                    case 3:
+                        try { monster.Display_All_Monsters();
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                            Thread.Sleep(2000);
+                            Console.Clear();
+                            runMainMenu(PATH, BACKUP);
+                        } catch (Exception ex) { Console.WriteLine(ex.Message); }
+                        break;
+                    default:
                         break;
                 }
             }
@@ -48,39 +90,9 @@ namespace DnD_Encounter_Manager.Functions
             }
         }
 
-        public void Add_Monster()
-        {            
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("DnD Encounter Manager v0.1 (c) DeadPeopleLabs 2022");
-            Console.ResetColor();
-            Console.WriteLine("\n\n\tNew Monster Selected!!\n\n");
+       
 
-            Console.WriteLine("Monster Name: ");
-            string name = Console.ReadLine();
-            Console.WriteLine("Size: ");
-            string size = Console.ReadLine();
-            Console.WriteLine("Type: ");
-            string Type = Console.ReadLine();
-            Console.WriteLine("Alignment");
-            string align = Console.ReadLine();
-            Console.WriteLine("Armor Class: ");
-            int AC = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Hit Points: ");
-            int HP = Int32.Parse(Console.ReadLine());
-
-            Console.WriteLine("Speed(On Foot): ");
-            int speedMov = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Speed(Climb): ");
-            int speedClimb = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Speed(Fly): ");
-            int speedFly = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Speed(Swim): ");
-            int speedSwim = Int32.Parse(Console.ReadLine());
-
-
-
-        }
+       
 
     }
 }
