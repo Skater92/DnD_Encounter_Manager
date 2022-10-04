@@ -55,7 +55,7 @@ namespace DnD_Encounter_Manager
                     " 17)\tStealth\n" +
                     " 18)\tSurvival\n");
         }
-
+        //lkjh
         public void PrintDammageResistance()
         {
             Console.WriteLine("\n\n\t//\tDamage Resistance\t\\\\" +
