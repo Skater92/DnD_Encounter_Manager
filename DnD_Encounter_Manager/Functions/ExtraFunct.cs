@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +11,18 @@ namespace DnD_Encounter_Manager
     public class ExtraFunct
     {
 
-        public void PrintMenu()
+        public void PrintHeader()
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("DnD Encounter Manager v0.1 (c) DeadPeopleLabs 2022");
             Console.ResetColor();
+            Console.WriteLine();
+        }
+
+        public void PrintMenu()
+        {
+            
             Console.WriteLine("\n\n\t//\tMain Menu\t\\\\\n\n" +
                 "1)\tSave Files\n\n" +
                 "2)\tAdd Monster\n\n" +
@@ -126,7 +135,12 @@ namespace DnD_Encounter_Manager
                     "  7)\tMagic\n");
         }
 
-       
+       public bool ValidateData(string data, string Schema, out IList<string> messages)
+        {
+            JSchema schema = JSchema.Parse(Schema);
+            JArray saveData = JArray.Parse(data);
+            return saveData.IsValid(schema, out messages);
+        }
         
     }
 }

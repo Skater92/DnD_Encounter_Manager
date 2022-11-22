@@ -8,6 +8,8 @@ namespace DnD_Encounter_Manager.Functions
 {
     public class SaveFiles
     {
+        ExtraFunct funct = new ExtraFunct();
+
         CurrentFile file1 = new CurrentFile();
         public void PrintSaveMenu()
         {
@@ -21,31 +23,36 @@ namespace DnD_Encounter_Manager.Functions
         public string RunSaveMenu(string PATH, string BACKUP)
         {
             string userInput = Console.ReadLine();
-            string data_File = "";
+            string data_FileName = "";
 
             switch (userInput)
             {
                 case "1":
                     Console.Clear();
+                    funct.PrintHeader();
                     PrintSave(PATH);
-                    SelectSave(PATH, BACKUP);
+                    data_FileName = SelectSave(PATH, BACKUP);
                     break;
                 case "2":
                     Console.Clear();
+                    funct.PrintHeader();
                     CreateNewSave(PATH);
                     break;
                 case "3":
+                    Console.Clear();
+                    funct.PrintHeader();                    
                     Console.WriteLine("NON FUNCTIONAL ");
                     break;
                 default:
                     Console.Clear();
+                    funct.PrintHeader();
                     Console.WriteLine("EXITING");
                     Thread.Sleep(2000);
                     Environment.Exit(0);
                     break;
             }
 
-            return data_File;
+            return data_FileName;
         }
         
         public void PrintSave(string PATH)
@@ -93,11 +100,16 @@ namespace DnD_Encounter_Manager.Functions
                 " 1)\tLoad Save\n" +
                 " 2)\tDelete Save\n" +
                 " 3)\tBack\n");
+
+            
             string returnVal = "";
+
+            
             switch (Console.ReadLine())
             {
                 case "1":
                     Console.Clear();
+                    funct.PrintHeader();
                     try { file1.ACTIVE_FILE = LoadSave(PATH);
                         returnVal = file1.ACTIVE_FILE;
                     }
@@ -107,16 +119,20 @@ namespace DnD_Encounter_Manager.Functions
                     break;
                 case "2":
                     Console.Clear();
+                    funct.PrintHeader();
                     try { DeleteSave(PATH, BACKUP); }
                     catch (Exception e) { Console.WriteLine(e.Message);
                         
                     }
                     break;
                 case "3":
+                    Console.Clear();
+                    funct.PrintHeader();
                     Console.WriteLine("NON FUNCTIONAL ");
                     break;
                 default:
                     Console.Clear();
+                    funct.PrintHeader();
                     Console.WriteLine("EXITING");
                     Thread.Sleep(2000);
                     Environment.Exit(0);
@@ -144,7 +160,17 @@ namespace DnD_Encounter_Manager.Functions
                 {
                     Console.WriteLine($"\n\nMATCH FOUND! {userInput}.json\n\nLOADING FILE...");
                     Thread.Sleep(1500);
-                    return $"{PATH}\\{userInput}.json";
+                    try
+                    {
+                        string json = $"{PATH}\\{userInput}.json";
+                        return json;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        return null;
+                    }
+                    
                 }
                 
             }

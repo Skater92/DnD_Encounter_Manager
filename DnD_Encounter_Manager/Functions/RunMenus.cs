@@ -12,10 +12,12 @@ namespace DnD_Encounter_Manager.Functions
         ExtraFunct funct = new ExtraFunct();
         SaveFiles sf = new SaveFiles();
         MonsterManager monster = new MonsterManager();
-
-        public void runMainMenu(string PATH, string BACKUP)
+        
+        public void runMainMenu(string PATH, string BACKUP, List<Monster> m_)
         {
+            monster.monsters = m_;
             int returnVal;
+            funct.PrintHeader();
             funct.PrintMenu();         
             string inputVar = "";
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -44,19 +46,19 @@ namespace DnD_Encounter_Manager.Functions
                     case 1:
                         try
                         {
-                            Console.Clear();
+                            funct.PrintHeader();
                             sf.PrintSaveMenu();
                             sf.RunSaveMenu(PATH, BACKUP);
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadKey();
                             Thread.Sleep(2000);
                             Console.Clear();
-                            runMainMenu(PATH, BACKUP);
+                            runMainMenu(PATH, BACKUP, monster.monsters);
                         }
                         catch(Exception ex)
                         {
                             Console.WriteLine(ex.Message);
-                            runMainMenu(PATH, BACKUP);
+                            runMainMenu(PATH, BACKUP, monster.monsters);
                         }
                         break;
                     case 2:
@@ -64,7 +66,7 @@ namespace DnD_Encounter_Manager.Functions
                             Console.WriteLine("Monster ADDED!");
                             Thread.Sleep(2000);
                             Console.Clear();
-                            runMainMenu(PATH, BACKUP);
+                            runMainMenu(PATH, BACKUP, monster.monsters);
                         }
                         catch (Exception ex)
                         {
@@ -72,12 +74,15 @@ namespace DnD_Encounter_Manager.Functions
                         }
                         break;
                     case 3:
-                        try { monster.Display_All_Monsters();
+                        try {
+                            Console.Clear();
+                            funct.PrintHeader();
+                            monster.Display_All_Monsters();
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadKey();
-                            Thread.Sleep(2000);
                             Console.Clear();
-                            runMainMenu(PATH, BACKUP);
+                            Thread.Sleep(2000);
+                            runMainMenu(PATH, BACKUP, monster.monsters);
                         } catch (Exception ex) { Console.WriteLine(ex.Message); }
                         break;
                     default:

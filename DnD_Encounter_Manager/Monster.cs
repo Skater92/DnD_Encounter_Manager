@@ -12,8 +12,7 @@ namespace DnD_Encounter_Manager
     public class Monster
     {
         public int MonsterID { get; set; }
-        public string? Name { get; set; }
-        
+        public string? Name { get; set; }        
         public int HP { get; set; }
         public bool isLegendary { get; set; }
         public bool inLair { get; set; }
@@ -22,6 +21,7 @@ namespace DnD_Encounter_Manager
         public int speedFly { get; set; }
         public int speedClimb { get; set; }
         public int speedSwim { get; set; }
+        public int speedBurrow { get; set; }
         public int profBonus { get; set; }
         public int challenge { get; set; }
         public int Str { get; set; }
@@ -30,7 +30,8 @@ namespace DnD_Encounter_Manager
         public int Int { get; set; }
         public int Wis { get; set; }
         public int Cha { get; set; }
-        public Dictionary<string, int>? AC { get; set; }
+        public int AC { get; set; }
+        public string? ACType { get; set; }
         public Dictionary<string, bool>? Resistances { get; set; }
         public Dictionary<string, bool>? ConImmun { get; set; }
         public Dictionary<string, int>? Sense { get; set; }

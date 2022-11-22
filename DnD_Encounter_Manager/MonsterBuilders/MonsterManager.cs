@@ -29,11 +29,7 @@ namespace DnD_Encounter_Manager.MonsterBuilders
 
         
         public void Add_Monster()
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("DnD Encounter Manager v0.1 (c) DeadPeopleLabs 2022");
-            Console.ResetColor();
+        {           
             Console.WriteLine("\n\n\tNew Monster Selected!!\n\n");
 
             
@@ -372,31 +368,37 @@ namespace DnD_Encounter_Manager.MonsterBuilders
         }
 
 
-
+        public void SeparatorBars()
+        {
+            //SEPARATOR BARS
+            Console.Write("\t");
+            for (int i = 0; i < 30; i++)
+            {
+                Console.Write("=");
+            }
+            Console.WriteLine();
+        }
         
         public void PrintMonster(Monster mon)
         {
             //Print Monster
             Console.WriteLine("\n\n\t//\tMonster Information\\\\\n\n");
             Console.WriteLine($"Name: {mon.Name}");
-            Console.WriteLine($"{mon.size} {mon.Type}, {mon.Alignment}");
+            Console.WriteLine($"Size: {mon.size},\nType: {mon.Type},\nAlignment: {mon.Alignment}");
 
-            //SEPARATOR BARS
-            for (int i = 0; i < 15; i++)
-            {
-                Console.Write("=");
+            SeparatorBars();
+            try
+            {                
+                    if (mon.AC > 0)
+                    {
+                        Console.WriteLine($"AC: {mon.AC} [{mon.ACType}]");                        
+                    }               
+                
             }
-            Console.WriteLine();
-
-            foreach (KeyValuePair<string, int> ArmorClass in mon.AC)
+            catch
             {
-                //find the key with the value of greater than 0
-                if (ArmorClass.Value > 0)
-                {
-                    Console.WriteLine($"Armor Class: {ArmorClass.Value} ({ArmorClass.Key.ToLower()})");                    
-                }
+                Console.WriteLine("Armor Class ERROR");
             }
-            
             Console.WriteLine($"Hit Points: {mon.HP}");
             if(mon.speedMov > 0)
             {
@@ -417,137 +419,172 @@ namespace DnD_Encounter_Manager.MonsterBuilders
             }
             Console.WriteLine();
 
-            //SEPARATOR BARS
-            for (int i = 0; i < 15; i++)
-            {
-                Console.Write("=");
-            }
-            Console.WriteLine();
+            SeparatorBars();
 
 
             Console.WriteLine("\tSTR\tDEX\tCON\tINT\tWIS\tCHA");
-            Console.WriteLine($"{mon.Str}\t{mon.Dex}\t{mon.Con}\t{mon.Int}\t{mon.Wis}\t{mon.Cha}");
+            Console.WriteLine($"\t{mon.Str}\t{mon.Dex}\t{mon.Con}\t{mon.Int}\t{mon.Wis}\t{mon.Cha}");
 
-            //SEPARATOR BARS
-            for (int i = 0; i < 15; i++)
-            {
-                Console.Write("=");
-            }
-            Console.WriteLine();
+            
 
-            Console.Write("Saving Throws ");
-            foreach (KeyValuePair<string,int> save in mon.saveThrows)
+            try
             {
-                if (save.Value > 0)
+                Console.Write("Saving Throws ");
+                foreach (KeyValuePair<string, int> save in mon.saveThrows)
                 {
-                    Console.Write($"{save.Key.ToUpper()} ");
-                    if (save.Value >= 0)
+                    if (save.Value > 0)
                     {
-                        Console.Write($"+{save.Value} ");
-                    }
-                    else
-                    {
-                        Console.Write($"-{save.Value} ");
+                        Console.Write($"{save.Key.ToUpper()} ");
+                        if (save.Value >= 0)
+                        {
+                            Console.Write($"+{save.Value} ");
+                        }
+                        else
+                        {
+                            Console.Write($"-{save.Value} ");
+                        }
                     }
                 }
             }
-            Console.WriteLine();
-            Console.Write("Skills ");
-            foreach (KeyValuePair<string, int> skill in mon.Skills)
+            catch
             {
-                if (skill.Value > 0)
+                Console.WriteLine("Saving Throws ERROR");
+            }
+            Console.WriteLine();
+            try
+            {
+                Console.Write("Skills ");
+                foreach (KeyValuePair<string, int> skill in mon.Skills)
                 {
-                    Console.Write($"{skill.Key} ");
-                    if (skill.Value >= 0)
+                    if (skill.Value > 0)
                     {
-                        Console.Write($"+{skill.Value} ");
+                        Console.Write($"{skill.Key} ");
+                        if (skill.Value >= 0)
+                        {
+                            Console.Write($"+{skill.Value} ");
+                        }
+                        else
+                        {
+                            Console.Write($"-{skill.Value} ");
+                        }
                     }
-                    else
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Skills ERROR");
+            }
+            Console.WriteLine();
+            try
+            {
+                Console.Write($"Damage Resistances: ");
+                foreach (KeyValuePair<string, bool> res in mon.Resistances)
+                {
+                    if (res.Value)
                     {
-                        Console.Write($"-{skill.Value} ");
+                        Console.Write($"{res.Key} ");
                     }
                 }
             }
-            Console.WriteLine();
-            Console.Write($"Damage Resistances: ");
-            foreach (KeyValuePair<string, bool> res in mon.Resistances)
+            catch
             {
-                if (res.Value)
+                Console.WriteLine("Damage Resistances ERROR");
+            }
+            Console.WriteLine();
+            try
+            {
+                Console.Write("Senses: ");
+                foreach (KeyValuePair<string, int> sense in mon.Sense)
                 {
-                    Console.Write($"{res.Key} ");
+                    if (sense.Value > 0)
+                    {
+                        Console.Write($"{sense.Key} {sense.Value} ft");
+                    }
                 }
             }
+            catch
+            {
+                Console.WriteLine("Senses ERROR");
+            }
+            
+            Console.Write($"Passive Perception: {mon.PassPerception}");
             Console.WriteLine();
 
-            Console.Write("Senses: ");
-            foreach(KeyValuePair<string, int> sense in mon.Sense)
+            try
             {
-                if(sense.Value > 0)
+                Console.Write("Languages: ");
+                foreach (string i in mon.Language)
                 {
-                    Console.Write($"{sense.Key} {sense.Value} ft");
+                    Console.Write($"{i} ");
                 }
             }
-            Console.Write($"Passive Perception {mon.PassPerception}");
+            catch
+            {
+                Console.WriteLine("Languages ERROR");
+            }
+            Console.WriteLine();
+            try
+            {
+                Console.Write($"Challenge: {mon.challenge}\tProficiency Bonus: ");
+                if (mon.challenge >= 0)
+                {
+                    Console.Write($"+{mon.profBonus}");
+                }
+                else
+                {
+                    Console.Write($"-{mon.profBonus}");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Challenge ERROR");
+            }
             Console.WriteLine();
 
-            Console.Write("Languages: ");
-            foreach(string i in mon.Language)
-            {
-                Console.Write($"{i} ");
-            }
-            Console.WriteLine();
-            Console.Write($"Challenge: {mon.challenge}\tProficiency Bonus: ");
-            if(mon.challenge >= 0)
-            {
-                Console.Write($"+{mon.profBonus}");
-            }
-            else
-            {
-                Console.Write($"-{mon.profBonus}");
-            }
-            Console.WriteLine();
-
-            //SEPARATOR BARS
-            for (int i = 0; i < 15; i++)
-            {
-                Console.Write("=");
-            }
-            Console.WriteLine();
+            SeparatorBars();
 
             //FEATS
-
-            foreach(KeyValuePair<string, string> feat in mon.Feature)
+            try
             {
-                Console.WriteLine($"{feat.Key}\n{feat.Value}");
-            }
-
-            //ACTIONS
-
-            Console.WriteLine("Actions");
-            //SEPARATOR BARS
-            for (int i = 0; i < 15; i++)
-            {
-                Console.Write("=");
-            }
-            Console.WriteLine();
-
-            foreach(KeyValuePair<string, string> action in mon.Action)
-            {
-                Console.WriteLine($"{action.Key}\n{action.Value}");
-            }
-
-            if(mon.isLegendary)
-            {
-                Console.WriteLine("Legendary Actions");
-                //SEPARATOR BARS
-                for (int i = 0; i < 15; i++)
+                foreach (KeyValuePair<string, string> feat in mon.Feature)
                 {
-                    Console.Write("=");
+                    Console.WriteLine($"{feat.Key}\n{feat.Value}");
                 }
-                Console.WriteLine();
-                foreach(var thing in mon.LegendaryAct)
+            }
+            catch
+            {
+                Console.WriteLine("Feats ERROR");
+            }
+            SeparatorBars();
+            //ACTIONS
+            try
+            {
+                Console.WriteLine("Actions");
+                
+
+                foreach (KeyValuePair<string, string> action in mon.Action)
                 {
-                    Console.WriteLine($"{thing.Key}\n{thing.Value}");
+                    Console.WriteLine($"{action.Key}\n{action.Value}");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Actions ERROR");
+            }
+            if (mon.isLegendary)
+            {
+                try
+                {
+                    Console.WriteLine("Legendary Actions");
+                    SeparatorBars();
+                    foreach (var thing in mon.LegendaryAct)
+                    {
+                        Console.WriteLine($"{thing.Key}\n{thing.Value}");
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Legendary Actions ERROR");
                 }
             }
 
@@ -560,21 +597,32 @@ namespace DnD_Encounter_Manager.MonsterBuilders
                 //Print Monster List
                 Console.WriteLine("\n\n\t//\tMonster List\\\\\n\n");
                 int count = 0;
-                foreach (Monster mon in monsters)
-                {                    
-                    Console.WriteLine($"{count+1})\t{mon.Name}");
-                    count++;
+                if (monsters.Count <= 0)
+                {
+                    Console.WriteLine("\n\nNo Creatures in detected in save file\n");
+                    userInput = "Q";
+                    break;
+                }
+                else
+                {
+                    foreach (Monster mon in monsters)
+                    {
+                        Console.WriteLine($"{count + 1})\t{mon.Name}");
+                        count++;
+                    }
                 }
                 Console.WriteLine("Select Menu Option by Number, press 'Q' to Quit");
                 userInput = Console.ReadLine().ToUpper();
                 
                 if(userInput != "Q")
                 {
-                    count = 0;
+                    count = 1;
                     foreach (Monster mon in monsters)
                     {
                         if(int.Parse(userInput) == count)
                         {
+                            Console.Clear();
+                            funct.PrintHeader();
                             PrintMonster(mon);
                         }
                         count++;
