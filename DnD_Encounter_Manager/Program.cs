@@ -14,7 +14,7 @@ namespace DnD_Encounter_Manager
 {
     class Program
     {
-        
+          //
         private static readonly string PATH = System.Environment.CurrentDirectory;
         private static readonly string SCHEMA = PATH + "\\..\\..\\Debug\\net6.0\\MOB_SCHEMA.json";
         private static readonly string DATA_FILE = PATH + "\\..\\..\\Debug\\net6.0\\Saved_Files";
