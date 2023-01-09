@@ -10,25 +10,24 @@ using System.Windows.Forms;
 
 namespace DnD_Encounter_Manager.Forms
 {
-    public partial class SaveMenu : Form
+    public partial class MainMenu : Form
     {
-        public SaveMenu()
+        public MainMenu()
         {
             InitializeComponent();
-            this.ShowInTaskbar = false;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
